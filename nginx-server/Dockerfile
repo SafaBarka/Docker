@@ -41,3 +41,16 @@ RUN curl -fsSL https://nginx.org/keys/nginx_signing.key | apt-key add -
 RUN apt-get update 
 RUN apt-get install nginx -y
 
+#-----------------------------------------------------------------
+#install php
+#install the PHP-FPM(FastCGI Process Manager)
+RUN apt-get install -y php7.3-fpm
+
+#-----------------------------------------------------------------
+#COPY <src>...<dest>
+#the COPY instruction copies new files or diretories from <src>and adds them to the filesystem of the container at the path <dest>
+COPY default.conf /etc/nginx/conf.d/
+
+#-----------------------------------------------------------------
+#change the group of the user nginx
+RUN usermod -G www-data nginx
