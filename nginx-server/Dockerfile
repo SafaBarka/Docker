@@ -54,3 +54,10 @@ COPY default.conf /etc/nginx/conf.d/
 #-----------------------------------------------------------------
 #change the group of the user nginx
 RUN usermod -G www-data nginx
+
+#----------------------------------------------------------------
+COPY mysql.sh /
+
+RUN bash mysql.sh
+
+
