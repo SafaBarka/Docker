@@ -63,4 +63,23 @@ COPY mysql.sh /
 #execute the mysql.sh script
 RUN bash mysql.sh
 
+#----------------------------------------------------------------
+#install phpmyadmin from source
+
+RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.tar.gz
+
+#extract the content of the  archive
+RUN tar -zxvf phpMyAdmin-5.0.2-all-languages.tar.gz
+
+#change the name using mv command
+RUN mv phpMyAdmin-5.0.2-all-languages/ phpmyadmin/
+
+# change the location of phpmyadmin directory  using mv command
+RUN mv phpmyadmin/ /usr/share/nginx/html/
+
+#change the owner  and group of a directory recursively
+RUN chown -R www-data:www-data /usr/share/nginx/html/
+
+#install the mysqli extension
+RUN apt-get install php-mysqli
 
