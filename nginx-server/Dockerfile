@@ -56,8 +56,11 @@ COPY default.conf /etc/nginx/conf.d/
 RUN usermod -G www-data nginx
 
 #----------------------------------------------------------------
+#Copy  mysql.sh into the Docker image
 COPY mysql.sh /
 
+#-----------------------------------------------------------------
+#execute the mysql.sh script
 RUN bash mysql.sh
 
 
