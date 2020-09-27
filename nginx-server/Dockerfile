@@ -78,8 +78,39 @@ RUN mv phpMyAdmin-5.0.2-all-languages/ phpmyadmin/
 RUN mv phpmyadmin/ /usr/share/nginx/html/
 
 #change the owner  and group of a directory recursively
-RUN chown -R www-data:www-data /usr/share/nginx/html/
+RUN chown -R www-data:www-data /usr/share/nginx/html/phpmyadmin
 
+#-----------------------------------------------------------------------------------
 #install the mysqli extension
+#mysqli extension is a relational database driver used to connect to the Mysql database server.
 RUN apt-get install php-mysqli
+
+#----------------------------------------------------------------------------------
+#mbstring stands for multi-byte string functions. Mbstring is an extension of php used to manage non-ASCII strings.
+RUN apt-get install php7.3-mbstring -y
+
+#---------------------------------------------------------------------------------
+RUN mv /usr/share/nginx/html/phpmyadmin/config.sample.inc.php  /usr/share/nginx/html/phpmyadmin/config.inc.php
+
+#--------------------------------------------------------------------------------
+COPY config.inc.php /
+
+#-------------------------------------------------------------------------------
+RUN mv config.inc.php  /usr/share/nginx/html/phpmyadmin/
+
+#------------------------------------------------------------------------------
+#copy phpmyadmin.sh into the docker image
+COPY phpmyadmin.sh /
+
+#-----------------------------------------------------------------------------
+#chmod :change permisisons of a file (or folder in general) <==> change modes
+# +x :add permission to execute the file to all (user, group and others)
+RUN chmod +x phpmyadmin.sh
+
+#---------------------------------------------------------------------------------
+#execute a script file
+RUN ./phpmyadmin.sh
+
+#-----------------------------------------------------------------------------
+CMD service mysql restart && service php7.3-fpm start && nginx -g 'daemon off;'
 
