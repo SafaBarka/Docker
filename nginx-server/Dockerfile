@@ -108,9 +108,35 @@ COPY phpmyadmin.sh /
 RUN chmod +x phpmyadmin.sh
 
 #---------------------------------------------------------------------------------
+#download the latest WordPress installs.
+#download the compressed release.
+RUN wget https://wordpress.org/latest.tar.gz
+#curl -LO https://wordpress.org/latest.tar.gz
+
+#extract the compressed file to create the Wordpress directory structure.
+RUN tar xf latest.tar.gz
+
+RUN mv wordpress /usr/share/nginx/html/
+
+#change the ownership of directory recursively to www-data
+#the user and group that NGinx runs as, and Nginx will need to be able to read and write Wordpress files in order to serve the website.
+RUN chown -R www-data:www-data /usr/share/nginx/html/wordpress
+
+Run mv /usr/share/nginx/html/wordpress/wp-config-sample.php /usr/share/nginx/html/wordpress/wp-config.php
+
+COPY wp-config.php /usr/share/nginx/html/wordpress/
+
+COPY wordpress.sql /usr/share/nginx/html/wordpress/
+
+RUN rm -rf /usr/share/nginx/html/index.html
+
+RUN mv /usr/share/nginx/html/wordpress/*  /usr/share/nginx/html/
+
+RUN rm -rf /usr/share/nginx/html/wordpress
+
 #execute a script file
 RUN ./phpmyadmin.sh
 
-#-----------------------------------------------------------------------------
+#-------------------------------------------------------
 CMD service mysql restart && service php7.3-fpm start && nginx -g 'daemon off;'
 
