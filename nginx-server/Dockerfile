@@ -128,11 +128,11 @@ COPY wp-config.php /usr/share/nginx/html/wordpress/
 
 COPY wordpress.sql /usr/share/nginx/html/wordpress/
 
-RUN rm -rf /usr/share/nginx/html/index.html
+#RUN rm -rf /usr/share/nginx/html/index.html
 
-RUN mv /usr/share/nginx/html/wordpress/*  /usr/share/nginx/html/
+#RUN mv /usr/share/nginx/html/wordpress/*  /usr/share/nginx/html/
 
-RUN rm -rf /usr/share/nginx/html/wordpress
+#RUN rm -rf /usr/share/nginx/html/wordpress
 
 #execute a script file
 RUN ./phpmyadmin.sh
