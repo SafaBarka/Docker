@@ -24,7 +24,7 @@ mysql -u root -e "CREATE DATABASE wordpress";
 mysql -u root -e "GRANT ALL ON wordpress.* TO 'safa'@'localhost' IDENTIFIED BY '123567'"
 
 #import tables (.sql file) to mysql database
-mysql -u root wordpress < /usr/share/nginx/html/wordpress/wordpress.sql
+mysql -u root wordpress < /usr/share/nginx/html/wordpress.sql
 
 #we need to flush the privileges so that the current instance of mysql knows about the rcent changes we've made.
 mysql -u root -e "FLUSH PRIVILEGES";
