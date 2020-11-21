@@ -49,7 +49,7 @@ RUN apt-get install -y php7.3-fpm
 #-----------------------------------------------------------------
 #COPY <src>...<dest>
 #the COPY instruction copies new files or diretories from <src>and adds them to the filesystem of the container at the path <dest>
-COPY default.conf /etc/nginx/conf.d/
+COPY srcs/default.conf /etc/nginx/conf.d/
 
 #-----------------------------------------------------------------
 #change the group of the user nginx
@@ -57,7 +57,7 @@ RUN usermod -G www-data nginx
 
 #----------------------------------------------------------------
 #Copy  mysql.sh into the Docker image
-COPY mysql.sh /
+COPY srcs/mysql.sh /
 
 #-----------------------------------------------------------------
 #execute the mysql.sh script
@@ -93,14 +93,14 @@ RUN apt-get install php7.3-mbstring -y
 RUN mv /usr/share/nginx/html/phpmyadmin/config.sample.inc.php  /usr/share/nginx/html/phpmyadmin/config.inc.php
 
 #--------------------------------------------------------------------------------
-COPY config.inc.php /
+COPY srcs/config.inc.php /
 
 #-------------------------------------------------------------------------------
 RUN mv config.inc.php  /usr/share/nginx/html/phpmyadmin/
 
 #------------------------------------------------------------------------------
 #copy phpmyadmin.sh into the docker image
-COPY phpmyadmin.sh /
+COPY srcs/phpmyadmin.sh /
 
 #-----------------------------------------------------------------------------
 #chmod :change permisisons of a file (or folder in general) <==> change modes
@@ -124,9 +124,9 @@ RUN chown -R www-data:www-data /usr/share/nginx/html/wordpress
 
 Run mv /usr/share/nginx/html/wordpress/wp-config-sample.php /usr/share/nginx/html/wordpress/wp-config.php
 
-COPY wp-config.php /usr/share/nginx/html/wordpress/
+COPY srcs/wp-config.php /usr/share/nginx/html/wordpress/
 
-COPY wordpress.sql /usr/share/nginx/html/wordpress/
+COPY srcs/wordpress.sql /usr/share/nginx/html/wordpress/
 
 RUN rm -rf /usr/share/nginx/html/index.html
 
@@ -136,7 +136,21 @@ RUN rm -rf /usr/share/nginx/html/wordpress
 
 #execute a script file
 RUN ./phpmyadmin.sh
+RUN mkdir /etc/nginx/ssl
 
+COPY srcs/localhost.crt /etc/nginx/ssl/
+COPY srcs/localhost.key /etc/nginx/ssl/
+
+#RUN openssl req \
+#    -newkey rsa:2048 -nodes -keyout etc/nginx/ssl/localhost.key \
+#    -x509 -days 365 -out etc/nginx/ssl/localhost.crt \
+#    -subj "/C=US/ST=New York/L=Brooklyn/O=Example Brooklyn Company/CN=examplebrooklyn.com"
 #-------------------------------------------------------
 CMD service mysql restart && service php7.3-fpm start && nginx -g 'daemon off;'
+
+
+
+
+
+
 
