@@ -122,7 +122,7 @@ RUN mv wordpress /usr/share/nginx/html/
 #the user and group that NGinx runs as, and Nginx will need to be able to read and write Wordpress files in order to serve the website.
 RUN chown -R www-data:www-data /usr/share/nginx/html/wordpress
 
-Run mv /usr/share/nginx/html/wordpress/wp-config-sample.php /usr/share/nginx/html/wordpress/wp-config.php
+RUN mv /usr/share/nginx/html/wordpress/wp-config-sample.php /usr/share/nginx/html/wordpress/wp-config.php
 
 COPY srcs/wp-config.php /usr/share/nginx/html/wordpress/
 
