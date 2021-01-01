@@ -23,7 +23,7 @@ RUN openrc default
 RUN rc-update add nginx default
 
 
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+#RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 
 RUN mkdir /etc/nginx/ssl
@@ -39,11 +39,17 @@ RUN rc-update add sshd
 #RUN rc-service sshd  start
 
 COPY srcs/localhost.key /etc/nginx/ssl
+COPY srcs/services.sh /
 
+ENTRYPOINT ["sh","services.sh"]
+
+#ENTRYPOINT ["sh","services.sh"]
+#CMD rc-service nginx start 
 #VOLUME [ “/sys/fs/cgroup” ]
 #/etc/init.d/sshd start
-CMD  rc-service sshd start &&  rc-service nginx start 
-
+#CMD  rc-service sshd start &&  rc-service nginx start 
+#CMD rc-service nginx start 
+#ENTRYPOINT  rc-service nginx start 
 #VOLUME [ “/sys/fs/cgroup” ]
 #WORKDIR /usr/data
 #RUN rc-service nginx start 
