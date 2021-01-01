@@ -22,38 +22,24 @@ RUN openrc default
 
 RUN rc-update add nginx default
 
-
-#RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-
-
 RUN mkdir /etc/nginx/ssl
 
 COPY srcs/localhost.crt /etc/nginx/ssl
-
-#https://wiki.alpinelinux.org/wiki/Setting_up_a_ssh-server
 
 RUN apk add openssh
 
 RUN rc-update add sshd
 
-#RUN rc-service sshd  start
-
 COPY srcs/localhost.key /etc/nginx/ssl
+
+COPY srcs/sshd_config /etc/ssh/
+
+RUN echo "root:root" | chpasswd
+
 COPY srcs/services.sh /
 
-ENTRYPOINT ["sh","services.sh"]
 
-#ENTRYPOINT ["sh","services.sh"]
-#CMD rc-service nginx start 
-#VOLUME [ “/sys/fs/cgroup” ]
-#/etc/init.d/sshd start
-#CMD  rc-service sshd start &&  rc-service nginx start 
-#CMD rc-service nginx start 
-#ENTRYPOINT  rc-service nginx start 
-#VOLUME [ “/sys/fs/cgroup” ]
-#WORKDIR /usr/data
-#RUN rc-service nginx start 
-#CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["sh","services.sh"]
 
 
 #ssh root@192.168.99.103
