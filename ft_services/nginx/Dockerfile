@@ -1,6 +1,19 @@
 FROM alpine
-
+#dockerImagePolicy
 RUN apk update
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: nginx-service
+# spec:
+#   selector:
+#     app: nginx
+#   ports:
+#   - protocol: TCP
+#     port: 80
+#     targetPort: 80
+#     nodePort: 31000
+#   type: NodePort
 
 RUN apk add nginx
 
@@ -38,6 +51,7 @@ RUN echo "root:root" | chpasswd
 
 COPY srcs/services.sh /
 
+EXPOSE 80 443 
 
 ENTRYPOINT ["sh","services.sh"]
 
