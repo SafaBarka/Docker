@@ -27,4 +27,11 @@ docker build -t mysql .
 
 kubectl apply -f mysql-deployment.yaml
 
+cd ~/Desktop/docker/ft_services/phpmyadmin
+
+docker build -t phpmyadmin .
+
+kubectl apply -f phpmyadmin-deployment.yaml
+
+
 minikube dashboard

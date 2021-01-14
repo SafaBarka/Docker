@@ -51,6 +51,8 @@ RUN echo "root:root" | chpasswd
 
 COPY srcs/services.sh /
 
+RUN apk add  mariadb-client
+
 EXPOSE 80 443 
 
 ENTRYPOINT ["sh","services.sh"]
