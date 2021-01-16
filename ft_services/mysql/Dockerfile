@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.11
 
 RUN apk update
 
@@ -16,6 +16,7 @@ COPY srcs/services.sh /
 
 COPY srcs/mariadb-server.cnf /etc/my.cnf.d/
 
+COPY srcs/create_tables.sql /
 COPY srcs/mysql.sh .
 RUN chmod 777 mysql.sh
 RUN ./mysql.sh
