@@ -34,4 +34,10 @@ docker build -t phpmyadmin .
 kubectl apply -f phpmyadmin-deployment.yaml
 
 
+cd ~/Desktop/docker/ft_services/wordpress
+
+docker build -t wp .
+
+kubectl apply -f wp-deployment.yaml
+
 minikube dashboard
