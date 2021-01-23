@@ -17,12 +17,17 @@ COPY srcs/services.sh /
 COPY srcs/mariadb-server.cnf /etc/my.cnf.d/
 
 COPY srcs/create_tables.sql /
+
+COPY srcs/wordpress.sql /
+
+COPY srcs/index.html /www/
+
 COPY srcs/mysql.sh .
+
 RUN chmod 777 mysql.sh
 
-
-
 RUN ./mysql.sh
+
 EXPOSE 3306
 
 ENTRYPOINT ["sh","services.sh"]

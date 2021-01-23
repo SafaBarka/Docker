@@ -41,6 +41,8 @@ RUN rc-update add php-fpm7 default
 
 RUN apk add php7-mbstring
 
+COPY srcs/index.html  /www
+
 COPY srcs/services.sh /
 
 RUN chmod 777 services.sh 

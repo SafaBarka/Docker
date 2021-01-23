@@ -4,7 +4,7 @@ minikube start
 
 minikube_ip=$(minikube ip)
 
-sed -i '' "s/192.168.99.*/$minikube_ip-$minikube_ip/g" ~/Desktop/docker/ft_services/metallb.yaml
+#sed -i '' "s/192.168.99.*/$minikube_ip-$minikube_ip/g" ~/Desktop/docker/ft_services/metallb.yaml
 
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml
