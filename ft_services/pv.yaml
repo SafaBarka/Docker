@@ -1,0 +1,10 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: volume3
+spec:
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  capacity:
+    storage: 400M

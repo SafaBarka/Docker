@@ -21,6 +21,10 @@ docker build -t nginx .
 
 kubectl apply -f nginx-deployment.yaml
 
+kubectl create -f ~/Desktop/docker/ft_services/pv.yaml
+
+kubectl create -f ~/Desktop/docker/ft_services/pvc.yaml
+
 cd ~/Desktop/docker/ft_services/mysql
 
 docker build -t mysql .
@@ -39,5 +43,11 @@ cd ~/Desktop/docker/ft_services/wordpress
 docker build -t wordpress .
 
 kubectl apply -f wp-deployment.yaml
+
+cd ~/Desktop/docker/ft_services/influxdb
+
+docker build -t influxdb .
+
+kubectl apply -f influxdb-deployment.yaml
 
 minikube dashboard

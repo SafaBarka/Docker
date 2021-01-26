@@ -4,7 +4,7 @@ RUN apk update
 
 RUN apk add mariadb mariadb-common mariadb-client
 
-RUN mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+#RUN mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 
 RUN apk add openrc --no-cache
 
@@ -22,11 +22,11 @@ COPY srcs/wordpress.sql /
 
 COPY srcs/index.html /www/
 
-COPY srcs/mysql.sh .
+#COPY srcs/mysql.sh .
 
-RUN chmod 777 mysql.sh
+#RUN chmod 777 mysql.sh
 
-RUN ./mysql.sh
+#RUN ./mysql.sh
 
 EXPOSE 3306
 

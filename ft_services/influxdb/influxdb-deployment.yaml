@@ -1,45 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-deployment
+  name: influxdb-deployment
   labels:
-    app: mysql
+    app: influxdb
 spec:
   selector:
     matchLabels:
-      app: mysql
+      app: influxdb
   template:
     metadata:
       labels:
-        app: mysql
+        app: influxdb
     spec:
       containers:
-        - name: mysql
-          image: mysql
+        - name: influxdb
+          image: influxdb
           imagePullPolicy: Never
           ports:
-          - containerPort: 3306
+          - containerPort: 3000
           volumeMounts:
-          - name: volume100
-            mountPath: /var/lib/mysql
+          - name: volume200
+            mountPath: /var/lib/influxdb
       volumes:
-        - name: volume100
+        - name: volume200
           persistentVolumeClaim:
             claimName: pvc2
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: mysql-service
+  name: influxdb-service
   annotations:
     metallb.universe.tf/allow-shared-ip: shared
 spec:
   selector:
-    app: mysql
+    app: influxdb
   ports:
-  - port: 3306
+  - port: 3000
   selector:
-    app: mysql
+    app: influxdb
   clusterIP: None
   
 
