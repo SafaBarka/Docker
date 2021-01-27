@@ -28,6 +28,17 @@ COPY srcs/index.html /www/
 
 #RUN ./mysql.sh
 
+RUN echo "http://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+
+RUN apk update
+
+RUN apk add --upgrade telegraf-openrc
+
+RUN apk add telegraf
+
+COPY srcs/telegraf.conf /etc/
+
+
 EXPOSE 3306
 
 ENTRYPOINT ["sh","services.sh"]

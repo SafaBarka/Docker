@@ -19,6 +19,11 @@ RUN apk update
 RUN apk add --upgrade telegraf-openrc
 
 RUN apk add telegraf
-EXPOSE 3000
+
+COPY srcs/telegraf.conf /etc/
+
+
+
+EXPOSE 8086
 
 ENTRYPOINT ["sh","services.sh"]
