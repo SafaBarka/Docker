@@ -25,6 +25,8 @@ RUN apk add telegraf
 
 COPY srcs/telegraf.conf /etc/
 
+COPY srcs/grafana.db /usr/share/grafana/data/
+
 EXPOSE 3000
 
 ENTRYPOINT ["sh","services.sh"]

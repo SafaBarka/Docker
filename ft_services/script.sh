@@ -1,3 +1,5 @@
+minikube config set memory 3072
+
 minikube delete
 
 #minikube start 
@@ -24,9 +26,9 @@ kubectl apply -f influxdb-deployment.yaml
 
 cd ~/Desktop/docker/ft_services/nginx
 
-docker build -t nginx .
+ docker build -t nginx .
 
-kubectl apply -f nginx-deployment.yaml
+ kubectl apply -f nginx-deployment.yaml
 
 kubectl create -f ~/Desktop/docker/ft_services/pv.yaml
 
